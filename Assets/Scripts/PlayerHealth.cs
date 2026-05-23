@@ -18,6 +18,7 @@ public class Health : MonoBehaviour
         curHealth = maxHealth;
     }
 
+    // Take damage to the player by a certain amount
     void TakeDamage(int amount)
     {
         curHealth -= amount;
@@ -30,6 +31,8 @@ public class Health : MonoBehaviour
             Die();
         }
     }
+
+    // Heal the player by a certain amount
         void Heal(int amount)
     {
         curHealth += amount;
