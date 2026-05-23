@@ -4,9 +4,13 @@ using System.Collections.Generic;
 
 public class Health : MonoBehaviour
 {
+    // Health
     public int curHealth = 0;
-    public int maxHealth = 100;
 
+    // Max Health
+    public int maxHealth = 100;
+    
+    // Health Bar
     public HealthBar healthBar;
 
     void Start()
@@ -14,18 +18,16 @@ public class Health : MonoBehaviour
         curHealth = maxHealth;
     }
 
-    void Update()
-    {
-        if( Input.GetKeyDown( KeyCode.Space ) )
-        {
-            DamagePlayer(10);
-        }
-    }
-
-    public void DamagePlayer( int damage )
+    void TakeDamage(int damage)
     {
         curHealth -= damage;
+        healthBar.SetHealth(curHealth);
 
-        healthBar.SetHealth( curHealth );
+        if (curHealth <= 0)
+        {
+            //Dead
+            // Show Game Over Screen
+            Die();
+        }
     }
 }
