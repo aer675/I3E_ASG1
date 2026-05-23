@@ -18,9 +18,9 @@ public class Health : MonoBehaviour
         curHealth = maxHealth;
     }
 
-    void TakeDamage(int damage)
+    void TakeDamage(int amount)
     {
-        curHealth -= damage;
+        curHealth -= amount;
         healthBar.SetHealth(curHealth);
 
         if (curHealth <= 0)
@@ -28,6 +28,16 @@ public class Health : MonoBehaviour
             //Dead
             // Show Game Over Screen
             Die();
+        }
+    }
+        void Heal(int amount)
+    {
+        curHealth += amount;
+        healthBar.SetHealth(curHealth);
+
+        if (curHealth > maxHealth)
+        {
+            curHealth = maxHealth;
         }
     }
 }
