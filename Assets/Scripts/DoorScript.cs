@@ -3,13 +3,12 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-// ======================
-// DOOR OPENING 
-// ======================
-/// <summary>
-/// Handles the door opening when the player enters the trigger zone.
-/// </summary>
-
+    // ======================
+    // DOOR OPENING 
+    // ======================
+    /// <summary>
+    /// Handles the door opening when the player enters the trigger zone.
+    /// </summary> <param name="other">The collider that entered the trigger zone.</param>
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -19,13 +18,12 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-// ======================
-// DOOR CLOSING
-// ======================
-/// <summary>
-/// Handles the door closing when the player exits the trigger zone.
-/// </summary>
-
+    // ======================
+    // DOOR CLOSING
+    // ======================
+    /// <summary>
+    /// Handles the door closing when the player exits the trigger zone.
+    /// </summary> <param name="other">The collider that exited the trigger zone.</param>
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")

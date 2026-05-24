@@ -4,13 +4,13 @@ using System.Collections.Generic;
 
 public class Health : MonoBehaviour
 {
-    // Health
+    /// <summary> The player's current health. </summary>
     public int curHealth = 0;
 
-    // Max Health
+    /// <summary> The player's maximum health. </summary>
     public int maxHealth = 100;
     
-    // Health Bar
+    /// <summary> The health bar UI element. </summary>
     public HealthBar healthBar;
 
     void Start()
@@ -18,7 +18,13 @@ public class Health : MonoBehaviour
         curHealth = maxHealth;
     }
 
-    // Take damage to the player by a certain amount
+    // ======================
+    // DAMAGE 
+    // ======================
+
+    /// <summary>
+    /// Takes damage from the player by a certain amount.
+    /// </summary> <param name="amount">The amount of damage to take.</param>
     void TakeDamage(int amount)
     {
         curHealth -= amount;
@@ -32,7 +38,14 @@ public class Health : MonoBehaviour
         }
     }
 
-    // Heal the player by a certain amount
+    // ======================
+    // HEALING
+    // ======================  
+
+    /// <summary>
+    /// Heals the player by a certain amount.  
+    /// </summary> <param name="amount">The amount of health to restore.</param>
+    
         void Heal(int amount)
     {
         curHealth += amount;
