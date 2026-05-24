@@ -9,6 +9,7 @@ public class DoorScript : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             print("Player entered trigger zone, doors open.");
+            // Add door opening animation here
         }
     }
 
@@ -18,6 +19,7 @@ public class DoorScript : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             print("Player exited trigger zone, doors close.");
+            // Add door closing animation here
         }
     }
 }
