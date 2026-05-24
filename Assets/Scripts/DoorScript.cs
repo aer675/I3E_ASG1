@@ -3,7 +3,13 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-// Player enter trigger zone, doors open 
+// ======================
+// DOOR OPENING 
+// ======================
+/// <summary>
+/// Handles the door opening when the player enters the trigger zone.
+/// </summary>
+
     void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
@@ -13,7 +19,13 @@ public class DoorScript : MonoBehaviour
         }
     }
 
-// Player exit trigger with collectible, doors close
+// ======================
+// DOOR CLOSING
+// ======================
+/// <summary>
+/// Handles the door closing when the player exits the trigger zone.
+/// </summary>
+
     void OnTriggerExit(Collider other)
     {
         if(other.gameObject.tag == "Player")
