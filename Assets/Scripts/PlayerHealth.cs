@@ -1,8 +1,14 @@
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 24 May 2026
+ * Description: Manages player health, including taking damage, healing, and handling death.
+ */
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class Health : MonoBehaviour
+public class PlayerHealth : MonoBehaviour
 {
     /// <summary> The player's current health. </summary>
     public int curHealth = 0;
@@ -11,7 +17,7 @@ public class Health : MonoBehaviour
     public int maxHealth = 100;
     
     /// <summary> The health bar UI element. </summary>
-    public HealthBar healthBar;
+    // public HealthBar healthBar;
 
     void Start()
     {
@@ -28,7 +34,7 @@ public class Health : MonoBehaviour
     void TakeDamage(int amount)
     {
         curHealth -= amount;
-        healthBar.SetHealth(curHealth);
+        //healthBar.SetHealth(curHealth);
 
         if (curHealth <= 0)
         {
@@ -49,7 +55,7 @@ public class Health : MonoBehaviour
         void Heal(int amount)
     {
         curHealth += amount;
-        healthBar.SetHealth(curHealth);
+        //healthBar.SetHealth(curHealth);
 
         if (curHealth > maxHealth)
         {

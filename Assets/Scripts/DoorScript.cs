@@ -1,3 +1,9 @@
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 2 June 2026
+ * Description: Manages door behavior, including opening and closing.
+ */
+
 using UnityEngine;
 
 public class DoorScript : MonoBehaviour
