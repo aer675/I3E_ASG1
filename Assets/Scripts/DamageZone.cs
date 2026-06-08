@@ -11,14 +11,25 @@ public class DamageZone : MonoBehaviour
     /// Applies damage to the player when they stay within the damage zone.
     /// </summary>
     /// <param name="other">The collider that is staying within the damage zone.</param>
+
+    // Add a timer variable to control how often damage is applied
+    private float damageTimer = 0f;
+    private const float damageInterval = 1f; // Apply damage every 1 second
+
     void OnTriggerStay(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-            if(playerHealth != null)
+            damageTimer += Time.deltaTime;
+            if(damageTimer >= damageInterval)
             {
-                playerHealth.TakeDamage(1); // Apply 1 damage per second
+                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+                if(playerHealth != null)
+                {
+                    playerHealth.TakeDamage(1); // Apply 1 damage per second
+                }
+                
+                damageTimer = 0f; // Reset the timer
             }
         }
     }
