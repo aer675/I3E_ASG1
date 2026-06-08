@@ -1,3 +1,9 @@
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 8 June 2026
+ * Description: Manages collectibles, allowing the player to collect items and update the score and collectible count.
+ */
+
 using UnityEngine;
 
 public class CollectibleScript : MonoBehaviour

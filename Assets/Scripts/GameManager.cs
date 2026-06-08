@@ -1,3 +1,9 @@
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 8 June 2026
+ * Description: Manages the game state and overall game logic.
+ */
+
 using UnityEngine;
 
 public class GameManager : MonoBehaviour

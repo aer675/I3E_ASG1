@@ -3,6 +3,7 @@
  * Date: 8 June 2026
  * Description: Manages damage zones, applying damage to the player when they enter the zone.
  */
+ 
 using UnityEngine;
 
 public class DamageZone : MonoBehaviour
@@ -28,7 +29,7 @@ public class DamageZone : MonoBehaviour
                 {
                     playerHealth.TakeDamage(1); // Apply 1 damage per second
                 }
-                
+
                 damageTimer = 0f; // Reset the timer
             }
         }
