@@ -17,7 +17,7 @@ public class DoorScript : MonoBehaviour
     /// </summary> <param name="other">The collider that entered the trigger zone.</param>
     void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.CompareTag("Player"))
         {
             print("Player entered trigger zone, doors open.");
             // Add door opening animation here
@@ -32,7 +32,7 @@ public class DoorScript : MonoBehaviour
     /// </summary> <param name="other">The collider that exited the trigger zone.</param>
     void OnTriggerExit(Collider other)
     {
-        if(other.gameObject.tag == "Player")
+        if(other.CompareTag("Player"))
         {
             print("Player exited trigger zone, doors close.");
             // Add door closing animation here
