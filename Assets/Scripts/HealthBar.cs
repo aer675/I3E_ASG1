@@ -1,3 +1,9 @@
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 8 June 2026
+ * Description: Manages the health bar UI, updating it based on the player's current health.
+ */
+ 
 using UnityEngine;
 
 public class HealthBar : MonoBehaviour
