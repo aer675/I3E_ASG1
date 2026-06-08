@@ -16,9 +16,9 @@ public class PlayerHealth : MonoBehaviour
     /// <summary> The player's maximum health. </summary>
     public int maxHealth = 100;
     
+    
     /// <summary> The health bar UI element. </summary>
     // public HealthBar healthBar;
-
     void Start()
     {
         curHealth = maxHealth;
@@ -31,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
     /// <summary>
     /// Takes damage from the player by a certain amount.
     /// </summary> <param name="amount">The amount of damage to take.</param>
-    void TakeDamage(int amount)
+    public void TakeDamage(int amount)
     {
         curHealth -= amount;
         //healthBar.SetHealth(curHealth);
@@ -51,8 +51,7 @@ public class PlayerHealth : MonoBehaviour
     /// <summary>
     /// Heals the player by a certain amount.  
     /// </summary> <param name="amount">The amount of health to restore.</param>
-    
-        void Heal(int amount)
+    public void Heal(int amount)
     {
         curHealth += amount;
         //healthBar.SetHealth(curHealth);
