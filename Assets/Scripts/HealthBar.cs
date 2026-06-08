@@ -2,15 +2,13 @@ using UnityEngine;
 
 public class HealthBar : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    /// <summary>
+    /// Sets the health bar UI based on the player's current health.
+    /// </summary> <param name="health">The player's current health.</param>
 
-    // Update is called once per frame
-    void Update()
+    public void
+    SetHealth(int health)
     {
-        
+        // Update health bar UI based on current health
     }
 }
