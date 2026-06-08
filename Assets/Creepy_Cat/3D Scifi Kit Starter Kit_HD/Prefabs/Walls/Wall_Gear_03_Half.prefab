@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 477680}
   - component: {fileID: 3377680}
   - component: {fileID: 2377680}
+  - component: {fileID: 1354241529146479205}
   m_Layer: 0
   m_Name: Wall_Gear_03_Half
   m_TagString: Untagged
@@ -90,6 +91,27 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &1354241529146479205
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177680}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.3028442, y: 2.7471602, z: 2.7698023}
+  m_Center: {x: -0.84857684, y: -1.625594, z: 2.125}
 --- !u!1 &177682
 GameObject:
   m_ObjectHideFlags: 0
