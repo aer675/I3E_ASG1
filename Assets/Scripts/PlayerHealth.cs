@@ -32,23 +32,20 @@ public class PlayerHealth : MonoBehaviour
     /// Takes damage from the player by a certain amount.
     /// </summary> <param name="amount">The amount of damage to take.</param>
     public void TakeDamage(int amount)
-    {
-        curHealth -= amount;
-        print("Player took damage, current health: " + curHealth);
-        healthBar.SetHealth(curHealth);
-
-        if (healthBar != null)
         {
-            healthBar.SetHealth(curHealth);
-        }
+            curHealth -= amount;
+            print("Player took damage, current health: " + curHealth);
+            
+            if (healthBar != null)
+            {
+                healthBar.SetHealth(curHealth);
+            }
 
-        if (curHealth <= 0)
-        {
-            //Dead
-            // Show Game Over Screen
-            Die();
+            if (curHealth <= 0)
+            {
+                Die();
+            }
         }
-    }
 
     // ======================
     // HEALING
@@ -60,8 +57,7 @@ public class PlayerHealth : MonoBehaviour
     public void Heal(int amount)
     {
         curHealth += amount;
-        healthBar.SetHealth(curHealth);
-
+        
         if (curHealth > maxHealth)
         {
             curHealth = maxHealth;
