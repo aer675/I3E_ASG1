@@ -12,15 +12,12 @@ public class HealthBar : MonoBehaviour
     /// <summary>
     /// Sets the health bar UI based on the player's current health.
     /// </summary> <param name="health">The player's current health.</param>
-    // public Image healthBarImage; // Reference to the health bar image component
+    public Image healthBarImage; // Reference to the health bar image component
     public void SetHealth(int health)
     {
-        // Update health bar UI based on current health
-        // Add reference to image component and set fill amount based on health percentage
-        //Image healthBarImage = GetComponent<Image>();
-        //if (healthBarImage != null)
-        //{
-            //healthBarImage.fillAmount = (float)health / 100f; //Max health is 100
-        //}  
+        if (healthBarImage != null)
+        {
+            healthBarImage.fillAmount = (float)health / 100f; // Max health is 100. Casting float ensures correct division.
+        }
     }
 }
