@@ -9,33 +9,25 @@ using UnityEngine;
 public class DoorScript : MonoBehaviour
 {
 
-    // ======================
-    // DOOR OPENING 
-    // ======================
     /// <summary>
-    /// Handles the door opening when the player enters the trigger zone.
+    /// Opens the door when the player enters the trigger zone, if the required conditions are met (e.g., having the correct keycard).
     /// </summary> <param name="other">The collider that entered the trigger zone.</param>
-    void OnTriggerEnter(Collider other)
+    
+    public bool requiresKeycard = false; // Flag to indicate if a keycard is required to open the door
+    public int doorLevel = 1; // Level of the door, can be used to determine if the player has the required keycard
+
+    public void OpenDoor()
     {
-        if(other.CompareTag("Player"))
-        {
-            print("Player entered trigger zone, doors open.");
-            // Add door opening animation here
-        }
+        // Add logic to open the door (e.g., play animation, disable collider, etc.)
+        print("Door opened!");
     }
 
-    // ======================
-    // DOOR CLOSING
-    // ======================
-    /// <summary>
-    /// Handles the door closing when the player exits the trigger zone.
-    /// </summary> <param name="other">The collider that exited the trigger zone.</param>
     void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            print("Player exited trigger zone, doors close.");
-            // Add door closing animation here
+            // Add logic to close the door (e.g., play animation, enable collider, etc.)
+            print("Door closed!");
         }
     }
 }
