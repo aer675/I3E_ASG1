@@ -5,15 +5,15 @@
  */
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
     /// <summary>
     /// Sets the health bar UI based on the player's current health.
     /// </summary> <param name="health">The player's current health.</param>
-
-    public void
-    SetHealth(int health)
+    // public Image healthBarImage; // Reference to the health bar image component
+    public void SetHealth(int health)
     {
         // Update health bar UI based on current health
         // Add reference to image component and set fill amount based on health percentage
