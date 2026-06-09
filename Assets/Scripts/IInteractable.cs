@@ -1,16 +1,13 @@
-using UnityEngine;
+/*
+ * Author: Aerica Gan Chai Ting
+ * Date: 10 June 2026
+ * Description: Interface contract that forces any interactable world object to implement a standard Interact method.
+ */
 
-public class IInteractable : MonoBehaviour
+public interface IInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    /// <summary>
+    /// Core interaction method called when the player looks at an object and presses the interaction key.
+    /// </summary>
+    void Interact();
 }
