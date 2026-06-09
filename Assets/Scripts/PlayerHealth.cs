@@ -16,9 +16,9 @@ public class PlayerHealth : MonoBehaviour
     /// <summary> The player's maximum health. </summary>
     public int maxHealth = 100;
     
-    
     /// <summary> The health bar UI element. </summary>
-    // public HealthBar healthBar;
+    public HealthBar healthBar;
+
     void Start()
     {
         curHealth = maxHealth;
@@ -35,7 +35,12 @@ public class PlayerHealth : MonoBehaviour
     {
         curHealth -= amount;
         print("Player took damage, current health: " + curHealth);
-        //healthBar.SetHealth(curHealth);
+        healthBar.SetHealth(curHealth);
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(curHealth);
+        }
 
         if (curHealth <= 0)
         {
@@ -55,11 +60,16 @@ public class PlayerHealth : MonoBehaviour
     public void Heal(int amount)
     {
         curHealth += amount;
-        //healthBar.SetHealth(curHealth);
+        healthBar.SetHealth(curHealth);
 
         if (curHealth > maxHealth)
         {
             curHealth = maxHealth;
+        }
+
+        if (healthBar != null)
+        {
+            healthBar.SetHealth(curHealth);
         }
     }
 
@@ -72,6 +82,6 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         print("Player has died.");
-        // Add death animation and game over logic here
+        // !!!!!!!! Add death animation and game over logic here!!!!!!!!
     }
 }
