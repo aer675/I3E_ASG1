@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
             TryInteract();
         }
     }
+    
 
     /// <summary>
     /// Shoots an invisible raycast from the center of the screen forward to detect interactable objects.

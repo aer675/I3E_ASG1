@@ -1,22 +1,21 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 8 June 2026
- * Description: Manages collectibles, allowing the player to collect items and update the score and collectible count.
+ * Date: 10 June 2026
+ * Description: Map fragment logic. Awards points, adds to inventory, triggers lore, and destroys itself.
  */
 
 using UnityEngine;
 
-public class CollectibleScript : MonoBehaviour
+public class CollectibleScript : MonoBehaviour, IInteractable
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    [Header("Collectible Settings")]
+    public int pointsValue = 50; 
 
-    // Update is called once per frame
-    void Update()
+    public void Interact()
     {
-        
+        // Give points, trigger the GameManager, and destroy the object
+        GameManager.Instance.AddScore(pointsValue);
+        GameManager.Instance.AddMapFragment();
+        Destroy(gameObject);
     }
 }
