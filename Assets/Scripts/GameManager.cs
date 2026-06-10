@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
     public void AddMapFragment()
         {
             // 1. Trigger the lore popup BEFORE adding to the count
-            if (mapCount < mapLore.Length && loreTextElement != null)
+            if (mapCount < mapLore.Length && loreText != null)
             {
                 StartCoroutine(ShowLoreText(mapLore[mapCount]));
             }
