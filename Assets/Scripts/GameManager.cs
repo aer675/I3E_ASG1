@@ -5,6 +5,8 @@
  */
 
 using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -25,10 +27,10 @@ public class GameManager : MonoBehaviour
     /// <summary> Flag indicating if the player has unlocked Level 2 door access. </summary>
     public bool hasLevel2Card = false;
 
-    //public Text loreText; // Reference to the UI Text component for displaying lore messages
-    //public Text scoreText; // Reference to the UI Text component for displaying score
+    public Text loreText; // Reference to the UI Text component for displaying lore messages
+    public Text scoreText; // Reference to the UI Text component for displaying score
 
-    private string[] loreMessages = new string[]
+    private string[] mapLore = new string[]
     {
         "Fragment 1: 'The schematics show a hidden vent in the locker room...'",
         "Fragment 2: 'Warning: Underground sector hazardous. Chemical leak detected.'",
@@ -58,19 +60,25 @@ public class GameManager : MonoBehaviour
     /// Increments the map fragment count and checks if the Level 1 keycard should spawn.
     /// </summary>
     public void AddMapFragment()
-    {
-        mapCount++;
-        print("Map fragment collected! Total maps: " + mapCount);
-        
-        // TODO: Update your Map UI counter here!
-        
-        if (mapCount >= 5)
         {
-            hasLevel1Card = true;
-            print("Level 1 Keycard Authorized!");
-            // TODO: Trigger a UI message or sound effect here!
+            // 1. Trigger the lore popup BEFORE adding to the count
+            if (mapCount < mapLore.Length && loreTextElement != null)
+            {
+                StartCoroutine(ShowLoreText(mapLore[mapCount]));
+            }
+
+            // 2. Increase the count
+            mapCount++;
+            print("Map fragment collected! Total maps: " + mapCount);
+            
+            // 3. Check for the win condition
+            if (mapCount >= 5)
+            {
+                hasLevel1Card = true;
+                print("Level 1 Keycard Authorized!");
+                // TODO: Spawn physical keycard object back at the start!
+            }
         }
-    }
 
     /// <summary>
     /// Adds points to the player's total score.
@@ -81,6 +89,22 @@ public class GameManager : MonoBehaviour
         score += points;
         print("Score updated! Current score: " + score);
         
-        // TODO: Update your Score UI text here!
+        // Update the score display in the UI
+        if (scoreText != null)
+        {
+            scoreText.text = "Score: " + score;
+        }
+    }
+
+    /// <summary>
+    /// Displays a lore message on the screen for a short duration.
+    /// </summary>
+    /// <param name="message">The lore message to display.</param>
+    private IEnumerator ShowLoreText(string message)
+    {
+        loreText.text = message;
+        loreText.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5f); // Display the message for 3 seconds
+        loreText.gameObject.SetActive(false);
     }
 }
