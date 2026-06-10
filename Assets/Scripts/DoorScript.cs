@@ -16,7 +16,7 @@ public class DoorScript : MonoBehaviour
     public bool requiresKeycard = false; // Flag to indicate if a keycard is required to open the door
     public int doorLevel = 1; // Level of the door, can be used to determine if the player has the required keycard
     
-    private Animator doorAnimator; // Reference to the Animator component for door animations
+    public Animator doorAnimator; // Reference to the Animator component for door animations
 
     public void OpenDoor()
     {
