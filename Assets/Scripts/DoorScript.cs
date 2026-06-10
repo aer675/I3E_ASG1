@@ -15,19 +15,32 @@ public class DoorScript : MonoBehaviour
     
     public bool requiresKeycard = false; // Flag to indicate if a keycard is required to open the door
     public int doorLevel = 1; // Level of the door, can be used to determine if the player has the required keycard
+    
+    private Animator doorAnimator; // Reference to the Animator component for door animations
 
     public void OpenDoor()
     {
-        // Add logic to open the door (e.g., play animation, disable collider, etc.)
         print("Door opened!");
+
+        //Tell the Animator to play the open animation
+        if (doorAnimator != null)
+        {
+            doorAnimator.SetTrigger("Open");
+            {
+                doorAnimator.SetBool("isOpen", true);
+            }
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            // Add logic to close the door (e.g., play animation, enable collider, etc.)
             print("Door closed!");
+            if (doorAnimator != null)
+            {
+                doorAnimator.SetBool("isOpen", false);
+            }
         }
     }
 }
