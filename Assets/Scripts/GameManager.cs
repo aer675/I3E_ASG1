@@ -7,6 +7,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
@@ -27,8 +28,8 @@ public class GameManager : MonoBehaviour
     /// <summary> Flag indicating if the player has unlocked Level 2 door access. </summary>
     public bool hasLevel2Card = false;
 
-    public Text loreText; // Reference to the UI Text component for displaying lore messages
-    public Text scoreText; // Reference to the UI Text component for displaying score
+    public TextMeshProUGUI loreText; // Reference to the UI Text component for displaying lore messages
+    public TextMeshProUGUI scoreText; // Reference to the UI Text component for displaying score
 
     private string[] mapLore = new string[]
     {
