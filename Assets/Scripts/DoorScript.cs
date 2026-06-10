@@ -19,24 +19,22 @@ public class DoorScript : MonoBehaviour
     public Animator doorAnimator; // Reference to the Animator component for door animations
 
     public void OpenDoor()
-    {
-        print("Door opened!");
-
-        //Tell the Animator to play the open animation
-        if (doorAnimator != null)
         {
-            doorAnimator.SetTrigger("Open");
+            print("Door opened!");
+            
+            // Change from SetTrigger to SetBool
+            if (doorAnimator != null)
             {
-                doorAnimator.SetBool("isOpen", true);
+                doorAnimator.SetBool("isOpen", true); 
             }
         }
-    }
 
     void OnTriggerExit(Collider other)
     {
         if(other.CompareTag("Player"))
         {
             print("Door closed!");
+            
             if (doorAnimator != null)
             {
                 doorAnimator.SetBool("isOpen", false);
