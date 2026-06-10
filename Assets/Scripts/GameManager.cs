@@ -25,6 +25,18 @@ public class GameManager : MonoBehaviour
     /// <summary> Flag indicating if the player has unlocked Level 2 door access. </summary>
     public bool hasLevel2Card = false;
 
+    //public Text loreText; // Reference to the UI Text component for displaying lore messages
+    //public Text scoreText; // Reference to the UI Text component for displaying score
+
+    private string[] loreMessages = new string[]
+    {
+        "Fragment 1: 'The schematics show a hidden vent in the locker room...'",
+        "Fragment 2: 'Warning: Underground sector hazardous. Chemical leak detected.'",
+        "Fragment 3: 'Level 2 clearance is required for the main exit safe...'",
+        "Fragment 4: 'Almost there. The final piece will trigger the main security override.'",
+        "Fragment 5: 'Override complete. Level 1 Keycard has materialized at the starting zone!'"
+    };
+
     /// <summary>
     /// Initializes the Singleton instance when the script loads.
     /// Ensures only one GameManager ever exists in the scene.
