@@ -1,7 +1,7 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 9 June 2026
- * Description: Core manager handling game state, inventory tracking, score, and win/lose conditions.
+ * Date: 11 June 2026
+ * Description: Core manager handling game state, inventory tracking, score, checkpoints, and win/lose conditions.
  */
 
 using UnityEngine;
@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour
 {
     /// <summary> Singleton instance allowing global access to the GameManager. </summary>
     public static GameManager Instance { get; private set; }
+
+    [Header("Checkpoint System")]
+    /// <summary> Static variable to remember the position across scene reloads. </summary>
+    public static Vector3 savedCheckpointPosition;
+    
+    /// <summary> Tracks if the player has actually touched a checkpoint yet. </summary>
+    public static bool hasReachedCheckpoint = false;
 
     [Header("Keycard Spawning")]
     /// <summary> The 3D model/prefab of the keycard to spawn. </summary>
@@ -36,8 +43,16 @@ public class GameManager : MonoBehaviour
     /// <summary> Flag indicating if the player has unlocked Level 2 door access. </summary>
     public bool hasLevel2Card = false;
 
+    [Header("UI References")]
     public TextMeshProUGUI loreText; // Reference to the UI Text component for displaying lore messages
     public TextMeshProUGUI scoreText; // Reference to the UI Text component for displaying score
+
+    [Header("UI Overlays")]
+    /// <summary> Reference to the Game Over UI Panel. </summary>
+    public GameObject gameOverPanel;
+    
+    /// <summary> Reference to the You Win UI Panel. </summary>
+    public GameObject winPanel;
 
     private string[] mapLore = new string[]
     {
@@ -63,6 +78,16 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    /// <summary>
+    /// Updates the global checkpoint location.
+    /// </summary>
+    public void SaveCheckpoint(Vector3 newPosition)
+    {
+        savedCheckpointPosition = newPosition;
+        hasReachedCheckpoint = true;
+        print("Checkpoint Saved at: " + newPosition);
     }
 
     /// <summary>
@@ -153,13 +178,6 @@ public class GameManager : MonoBehaviour
         loreText.gameObject.SetActive(false);
     }
 
-    [Header("UI Overlays")]
-    /// <summary> Reference to the Game Over UI Panel. </summary>
-    public GameObject gameOverPanel;
-    
-    /// <summary> Reference to the You Win UI Panel. </summary>
-    public GameObject winPanel;
-
     /// <summary>
     /// Freezes the game, unlocks the mouse, and shows the Victory screen.
     /// </summary>
@@ -197,13 +215,14 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// For the GAME OVER Screen: Unfreezes time and reloads the scene to try again.
+    /// For the GAME OVER Screen: Unfreezes time, hides the panel, and reloads the scene.
     /// </summary>
     public void RetryLevel()
     {
-        Time.timeScale = 1f; 
+        // Force the Game Over panel to hide!
+        if (gameOverPanel != null) gameOverPanel.SetActive(false); 
         
-        // Reloads the current scene exactly as it is
+        Time.timeScale = 1f; 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
 
@@ -212,16 +231,20 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void FullRestartGame()
     {
-        // 1. Wipe all player progress back to zero
+        // Force the Win panel to hide!
+        if (winPanel != null) winPanel.SetActive(false); 
+
+        // Wipe all player progress back to zero
         mapCount = 0;
         score = 0;
         hasLevel1Card = false;
         hasLevel2Card = false;
+        hasReachedCheckpoint = false; // Reset the checkpoint so they spawn at the very beginning!
 
-        // 2. Unfreeze time BEFORE loading
+        // Unfreeze time BEFORE loading
         Time.timeScale = 1f; 
         
-        // 3. Reload the scene! 
+        // Reload the scene! 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
 }

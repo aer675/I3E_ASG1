@@ -1,7 +1,7 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 10 June 2026
- * Description: Manages player interactions using Raycasts to detect and trigger IInteractable objects, and handles UI prompts.
+ * Date: 11 June 2026
+ * Description: Manages player interactions using Raycasts, handles UI prompts, and teleports the player to checkpoints.
  */
 
 using UnityEngine;
@@ -18,6 +18,23 @@ public class PlayerController : MonoBehaviour
     [Header("UI References")]
     /// <summary> Reference to the UI Text object that says [E] Interact. </summary>
     public GameObject interactPromptUI;
+
+    void Start()
+    {
+        // If the player has touched a checkpoint, teleport them there immediately upon loading the scene!
+        if (GameManager.hasReachedCheckpoint)
+        {
+            CharacterController cc = GetComponent<CharacterController>();
+            
+            // We must turn off the controller, move the player, and turn it back on!
+            // Unity's physics engine will fight the teleportation if we don't.
+            if (cc != null) cc.enabled = false;
+            
+            transform.position = GameManager.savedCheckpointPosition;
+            
+            if (cc != null) cc.enabled = true;
+        }
+    }
 
     void Update()
     {
