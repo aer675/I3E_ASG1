@@ -197,14 +197,31 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// Unfreezes the game and reloads the current scene.
+    /// For the GAME OVER Screen: Unfreezes time and reloads the scene to try again.
     /// </summary>
-    public void RestartGame()
+    public void RetryLevel()
     {
-        // Unfreeze time BEFORE loading
         Time.timeScale = 1f; 
         
-        // Reloads whatever scene you are currently playing
+        // Reloads the current scene exactly as it is
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
+    }
+
+    /// <summary>
+    /// For the WIN Screen: Wipes all inventory and score, then completely restarts the game.
+    /// </summary>
+    public void FullRestartGame()
+    {
+        // 1. Wipe all player progress back to zero
+        mapCount = 0;
+        score = 0;
+        hasLevel1Card = false;
+        hasLevel2Card = false;
+
+        // 2. Unfreeze time BEFORE loading
+        Time.timeScale = 1f; 
+        
+        // 3. Reload the scene! 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
 }
