@@ -17,13 +17,38 @@ public class DoorScript : MonoBehaviour
     
 
     /// <summary>
-    /// Opens the door when the player enters the invisible trigger zone.
+    /// Opens the door when the player enters, checking for security clearance if required.
     /// </summary>
     void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            OpenDoor();
+            // 1. Does this specific door require a keycard?
+            if (requiresKeycard)
+            {
+                // 2. It does! Check if it's a Level 1 door and if the player has the Level 1 card
+                if (doorLevel == 1 && GameManager.Instance.hasLevel1Card)
+                {
+                    print("Level 1 Access Granted!");
+                    OpenDoor();
+                }
+                // 3. Or check if it's a Level 2 door and if the player has the Level 2 card
+                else if (doorLevel == 2 && GameManager.Instance.hasLevel2Card)
+                {
+                    print("Level 2 Access Granted!");
+                    OpenDoor();
+                }
+                // 4. They don't have the right card! Keep it closed.
+                else
+                {
+                    print("Access Denied! You need a Level " + doorLevel + " Keycard.");
+                }
+            }
+            else
+            {
+                // If the door doesn't require a keycard at all, just open normally!
+                OpenDoor();
+            }
         }
     }
 

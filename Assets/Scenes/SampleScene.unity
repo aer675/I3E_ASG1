@@ -47136,7 +47136,7 @@ GameObject:
   - component: {fileID: 1351633195}
   - component: {fileID: 1351633194}
   m_Layer: 0
-  m_Name: Door (1)
+  m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47227,8 +47227,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 10.338665, y: 2.8496387, z: 4.6411896}
-  m_Center: {x: 2.5196247, y: -0.34266865, z: 3.284748}
+  m_Size: {x: 8.798267, y: 2.8496387, z: 4.6411896}
+  m_Center: {x: 1.7494259, y: -0.34266865, z: 3.284748}
 --- !u!114 &1351633197
 MonoBehaviour:
   m_ObjectHideFlags: 0
