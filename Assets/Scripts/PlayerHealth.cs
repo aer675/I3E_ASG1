@@ -76,8 +76,8 @@ public class PlayerHealth : MonoBehaviour
     /// Handles the player's death, including playing death animation and triggering game over logic.
     /// </summary>
     void Die()
-    {
-        print("Player has died.");
-        // !!!!!!!! Add death animation and game over logic here!!!!!!!!
-    }
+        {
+            print("Player has died.");
+            GameManager.Instance.TriggerGameOver(); 
+        }
 }

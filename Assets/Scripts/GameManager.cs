@@ -5,6 +5,7 @@
  */
 
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System.Collections;
 using TMPro;
@@ -135,5 +136,39 @@ public class GameManager : MonoBehaviour
         loreText.gameObject.SetActive(true);
         yield return new WaitForSeconds(5f); // Display the message for 3 seconds
         loreText.gameObject.SetActive(false);
+    }
+
+    [Header("UI Overlays")]
+    /// <summary> Reference to the Game Over UI Panel. </summary>
+    public GameObject gameOverPanel;
+
+    /// <summary>
+    /// Freezes the game, unlocks the mouse, and shows the Game Over screen.
+    /// </summary>
+    public void TriggerGameOver()
+    {
+        if (gameOverPanel != null)
+        {
+            gameOverPanel.SetActive(true);
+        }
+
+        // Freeze game time so hazards and enemies stop moving
+        Time.timeScale = 0f; 
+
+        // Unlock and show the mouse cursor so the player can click the button
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
+
+    /// <summary>
+    /// Unfreezes the game and reloads the current scene.
+    /// </summary>
+    public void RestartGame()
+    {
+        // Unfreeze time BEFORE loading
+        Time.timeScale = 1f; 
+        
+        // Reloads whatever scene you are currently playing
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); 
     }
 }
