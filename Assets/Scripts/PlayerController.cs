@@ -1,7 +1,7 @@
 /*
  * Author: Aerica Gan Chai Ting
  * Date: 10 June 2026
- * Description: Manages player interactions using Raycasts to detect and trigger IInteractable objects.
+ * Description: Manages player interactions using Raycasts to detect and trigger IInteractable objects, and handles UI prompts.
  */
 
 using UnityEngine;
@@ -15,20 +15,20 @@ public class PlayerController : MonoBehaviour
     /// <summary> Reference to the player's view. </summary>
     public Camera playerCamera; 
 
+    [Header("UI References")]
+    /// <summary> Reference to the UI Text object that says [E] Interact. </summary>
+    public GameObject interactPromptUI;
+
     void Update()
     {
-        // Listen for the player pressing the 'E' key every frame
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            TryInteract();
-        }
+        // Run the scanner every single frame to check what the player is looking at
+        ScanForInteractables();
     }
     
-
     /// <summary>
-    /// Shoots an invisible raycast from the center of the screen forward to detect interactable objects.
+    /// Shoots an invisible raycast from the center of the screen to detect objects and toggle the UI.
     /// </summary>
-    private void TryInteract()
+    private void ScanForInteractables()
     {
         // Safety check: ensure we actually linked the camera in the Inspector!
         if (playerCamera == null) 
@@ -49,9 +49,28 @@ public class PlayerController : MonoBehaviour
 
             if (interactableObj != null)
             {
-                // 4. It does! Trigger its specific Interact function (like picking up the map)
-                interactableObj.Interact();
+                // 4. We are looking at a valid item! Turn ON the UI Prompt.
+                if (interactPromptUI != null)
+                {
+                    interactPromptUI.SetActive(true);
+                }
+
+                // 5. If they press E while looking directly at it, run the interaction!
+                if (Input.GetKeyDown(KeyCode.E))
+                {
+                    interactableObj.Interact();
+                }
             }
+            else
+            {
+                // We hit a normal wall or floor. Turn OFF the UI.
+                if (interactPromptUI != null) interactPromptUI.SetActive(false);
+            }
+        }
+        else
+        {
+            // The laser hit absolutely nothing (looking at the sky). Turn OFF the UI.
+            if (interactPromptUI != null) interactPromptUI.SetActive(false);
         }
     }
 }
