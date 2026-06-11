@@ -114,6 +114,18 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Public method to trigger the UI pop-up from ANY other script in the game!
+    /// </summary>
+    /// <param name="message">The custom text you want to display.</param>
+    public void ShowMessage(string message)
+    {
+        if (loreText != null)
+        {
+            StartCoroutine(ShowLoreText(message));
+        }
+    }
+
+    /// <summary>
     /// Displays a lore message on the screen for a short duration.
     /// </summary>
     /// <param name="message">The lore message to display.</param>

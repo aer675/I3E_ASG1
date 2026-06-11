@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4300222248516463136}
   - component: {fileID: 6850803496007484018}
   - component: {fileID: 6147528007511971718}
-  - component: {fileID: -6501196258052904785}
+  - component: {fileID: -4144650013562402472}
   m_Layer: 0
   m_Name: L1
   m_TagString: Collectible
@@ -136,7 +136,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 0.16024041}
   m_Center: {x: 0, y: 0, z: 0.0011438131}
---- !u!114 &-6501196258052904785
+--- !u!114 &-4144650013562402472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,7 +145,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 4977022708789718221}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 833f4d2e615fe4c449c546c89228577b, type: 3}
+  m_Script: {fileID: 11500000, guid: 920a7fdd992fb4443b35e7f7bd792681, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::CollectibleScript
-  pointsValue: 100
+  m_EditorClassIdentifier: Assembly-CSharp::KeycardScript
