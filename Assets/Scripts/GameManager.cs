@@ -14,6 +14,13 @@ public class GameManager : MonoBehaviour
     /// <summary> Singleton instance allowing global access to the GameManager. </summary>
     public static GameManager Instance { get; private set; }
 
+    [Header("Keycard Spawning")]
+    /// <summary> The 3D model/prefab of the keycard to spawn. </summary>
+    public GameObject keycardPrefab;
+    
+    /// <summary> The exact spot in the starting zone where it should appear. </summary>
+    public Transform keycardSpawnPoint;
+
     [Header("Inventory & Score Tracking")]
     /// <summary> Tracks the total number of map fragments the player has collected. </summary>
     public int mapCount = 0;
@@ -77,7 +84,16 @@ public class GameManager : MonoBehaviour
             {
                 hasLevel1Card = true;
                 print("Level 1 Keycard Authorized!");
-                // TODO: Spawn physical keycard object back at the start!
+
+                // Spawn the keycard at the designated spawn point
+                if (keycardPrefab != null && keycardSpawnPoint != null)
+                {
+                    Instantiate(keycardPrefab, keycardSpawnPoint.position, keycardSpawnPoint.rotation);
+                }
+                else
+                {
+                    Debug.LogWarning("Cannot spawn keycard: Prefab or Spawn Point is missing in GameManager!");
+                }
             }
         }
 
