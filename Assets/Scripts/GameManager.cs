@@ -66,37 +66,55 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Refreshes the UI text to show the current score and how many maps remain.
+    /// </summary>
+    public void UpdateUI()
+    {
+        if (scoreText != null)
+        {
+            int mapsLeft = 5 - mapCount;
+            if (mapsLeft < 0) mapsLeft = 0; // Prevents negative numbers
+
+            // \n creates a new line so they stack nicely on the screen!
+            scoreText.text = "Score: " + score + "\nMaps Left: " + mapsLeft;
+        }
+    }
+
+    /// <summary>
     /// Increments the map fragment count and checks if the Level 1 keycard should spawn.
     /// </summary>
     public void AddMapFragment()
+    {
+        // 1. Trigger the lore popup BEFORE adding to the count
+        if (mapCount < mapLore.Length && loreText != null)
         {
-            // 1. Trigger the lore popup BEFORE adding to the count
-            if (mapCount < mapLore.Length && loreText != null)
+            StartCoroutine(ShowLoreText(mapLore[mapCount]));
+        }
+
+        // 2. Increase the count
+        mapCount++;
+        print("Map fragment collected! Total maps: " + mapCount);
+        
+        // Update the UI to show the new map count!
+        UpdateUI(); 
+        
+        // 3. Check for the win condition
+        if (mapCount >= 5)
+        {
+            hasLevel1Card = true;
+            print("Level 1 Keycard Authorized!");
+
+            // Spawn the keycard at the designated spawn point
+            if (keycardPrefab != null && keycardSpawnPoint != null)
             {
-                StartCoroutine(ShowLoreText(mapLore[mapCount]));
+                Instantiate(keycardPrefab, keycardSpawnPoint.position, keycardSpawnPoint.rotation);
             }
-
-            // 2. Increase the count
-            mapCount++;
-            print("Map fragment collected! Total maps: " + mapCount);
-            
-            // 3. Check for the win condition
-            if (mapCount >= 5)
+            else
             {
-                hasLevel1Card = true;
-                print("Level 1 Keycard Authorized!");
-
-                // Spawn the keycard at the designated spawn point
-                if (keycardPrefab != null && keycardSpawnPoint != null)
-                {
-                    Instantiate(keycardPrefab, keycardSpawnPoint.position, keycardSpawnPoint.rotation);
-                }
-                else
-                {
-                    Debug.LogWarning("Cannot spawn keycard: Prefab or Spawn Point is missing in GameManager!");
-                }
+                Debug.LogWarning("Cannot spawn keycard: Prefab or Spawn Point is missing in GameManager!");
             }
         }
+    }
 
     /// <summary>
     /// Adds points to the player's total score.
@@ -108,10 +126,7 @@ public class GameManager : MonoBehaviour
         print("Score updated! Current score: " + score);
         
         // Update the score display in the UI
-        if (scoreText != null)
-        {
-            scoreText.text = "Score: " + score;
-        }
+        UpdateUI();
     }
 
     /// <summary>
@@ -134,13 +149,34 @@ public class GameManager : MonoBehaviour
     {
         loreText.text = message;
         loreText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(5f); // Display the message for 3 seconds
+        yield return new WaitForSeconds(5f); // Display the message for 5 seconds
         loreText.gameObject.SetActive(false);
     }
 
     [Header("UI Overlays")]
     /// <summary> Reference to the Game Over UI Panel. </summary>
     public GameObject gameOverPanel;
+    
+    /// <summary> Reference to the You Win UI Panel. </summary>
+    public GameObject winPanel;
+
+    /// <summary>
+    /// Freezes the game, unlocks the mouse, and shows the Victory screen.
+    /// </summary>
+    public void TriggerWin()
+    {
+        if (winPanel != null)
+        {
+            winPanel.SetActive(true);
+        }
+
+        // Freeze game time
+        Time.timeScale = 0f; 
+
+        // Unlock and show the mouse cursor
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+    }
 
     /// <summary>
     /// Freezes the game, unlocks the mouse, and shows the Game Over screen.
