@@ -20,22 +20,23 @@ public class DamageZone : MonoBehaviour
     private const float damageInterval = 1f; // Apply damage every 1 second
 
     void OnTriggerStay(Collider other)
-    {
-        if(other.CompareTag("Player"))
         {
-            damageTimer += Time.deltaTime;
-            if(damageTimer >= damageInterval)
+            if(other.CompareTag("Player"))
             {
-                PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
-                if(playerHealth != null)
+                damageTimer += Time.deltaTime;
+                if(damageTimer >= damageInterval)
                 {
-                    playerHealth.TakeDamage(damageAmount); // Apply the specified damage per second
-                }
+                    PlayerHealth playerHealth = other.GetComponentInParent<PlayerHealth>();
+                    
+                    if(playerHealth != null)
+                    {
+                        playerHealth.TakeDamage(damageAmount); 
+                    }
 
-                damageTimer = 0f; // Reset the timer
+                    damageTimer = 0f; 
+                }
             }
         }
-    }
 
     void OnTriggerExit(Collider other)
     {
