@@ -1,7 +1,7 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 10 June 2026
- * Description: Manages door behavior, including opening and closing animations triggered by the player.
+ * Date: 12 June 2026
+ * Description: Manages automatic door behavior, including animations and UI security feedback.
  */
 
 using UnityEngine;
@@ -38,10 +38,10 @@ public class DoorScript : MonoBehaviour
                     print("Level 2 Access Granted!");
                     OpenDoor();
                 }
-                // 4. They don't have the right card! Keep it closed.
+                // 4. They don't have the right card! Keep it closed and show the UI message.
                 else
                 {
-                    print("Access Denied! You need a Level " + doorLevel + " Keycard.");
+                    GameManager.Instance.ShowMessage("Access Denied! You need a Level " + doorLevel + " Keycard.");
                 }
             }
             else
