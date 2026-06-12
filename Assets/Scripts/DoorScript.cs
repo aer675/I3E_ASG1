@@ -17,6 +17,9 @@ public class DoorScript : MonoBehaviour
 
     [Header("Game Juice")]
     public AudioSource doorAudio; 
+
+    // --- NEW: The door's memory! ---
+    private bool isCurrentlyOpen = false; 
     
 
     /// <summary>
@@ -60,15 +63,17 @@ public class DoorScript : MonoBehaviour
     /// </summary>
     public void OpenDoor()
     {
+        // Safety Check: If it's already open, do nothing!
+        if (isCurrentlyOpen) return; 
+
         print("Door opened!");
+        isCurrentlyOpen = true; // Update memory
         
         if (doorAnimator != null)
         {
-            // Tells the Animator to transition to the open state
             doorAnimator.SetBool("isOpen", true);
         }
 
-        // Tell the speaker to play the opening sound!
         if (doorAudio != null)
         {
             doorAudio.Play();
@@ -91,11 +96,13 @@ public class DoorScript : MonoBehaviour
     /// </summary>
     public void CloseDoor()
     {
+        if (!isCurrentlyOpen) return; 
+
         print("Door closed!");
+        isCurrentlyOpen = false; // Update memory
         
         if (doorAnimator != null)
         {
-            // Tells the Animator to transition back to the closed/idle state
             doorAnimator.SetBool("isOpen", false);
         }
 
