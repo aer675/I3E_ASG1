@@ -1,6 +1,6 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 12 June 2026
+ * Date: 24 May 2026
  * Description: Manages automatic door behavior, including animations and UI security feedback.
  */
 
