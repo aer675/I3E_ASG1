@@ -1,7 +1,7 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 24 May 2026
- * Description: Manages automatic door behavior, including animations and UI security feedback.
+ * Date: 12 June 2026
+ * Description: Manages automatic door behavior, including animations, UI security feedback, and audio.
  */
 
 using UnityEngine;
@@ -14,6 +14,9 @@ public class DoorScript : MonoBehaviour
     
     [Header("Animation")]
     public Animator doorAnimator;
+
+    [Header("Game Juice")]
+    public AudioSource doorAudio; 
     
 
     /// <summary>
@@ -53,7 +56,7 @@ public class DoorScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Core method that handles the opening animation state.
+    /// Core method that handles the opening animation state and plays audio.
     /// </summary>
     public void OpenDoor()
     {
@@ -63,6 +66,12 @@ public class DoorScript : MonoBehaviour
         {
             // Tells the Animator to transition to the open state
             doorAnimator.SetBool("isOpen", true);
+        }
+
+        // Tell the speaker to play the opening sound!
+        if (doorAudio != null)
+        {
+            doorAudio.Play();
         }
     }
 
@@ -78,7 +87,7 @@ public class DoorScript : MonoBehaviour
     }
 
     /// <summary>
-    /// Core method that handles the closing animation state.
+    /// Core method that handles the closing animation state and plays audio.
     /// </summary>
     public void CloseDoor()
     {
@@ -88,6 +97,11 @@ public class DoorScript : MonoBehaviour
         {
             // Tells the Animator to transition back to the closed/idle state
             doorAnimator.SetBool("isOpen", false);
+        }
+
+        if (doorAudio != null)
+        {
+            doorAudio.Play();
         }
     }
 }
