@@ -148,3 +148,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 920a7fdd992fb4443b35e7f7bd792681, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KeycardScript
+  keycardLevel: 1
+  pickupSound: {fileID: 8300000, guid: 49f3304319755d941b8f5f6c1e54bc68, type: 3}
