@@ -1,6 +1,6 @@
 /*
  * Author: Aerica Gan Chai Ting
- * Date: 11 June 2026
+ * Date: 12 June 2026
  * Description: Core manager handling game state, inventory tracking, score, checkpoints, and win/lose conditions.
  */
 
@@ -21,6 +21,12 @@ public class GameManager : MonoBehaviour
     
     /// <summary> Tracks if the player has actually touched a checkpoint yet. </summary>
     public static bool hasReachedCheckpoint = false;
+
+    // --- NEW: Memory snapshots for your inventory! ---
+    public static int savedMapCount = 0;
+    public static int savedScore = 0;
+    public static bool savedHasLevel1Card = false;
+    public static bool savedHasLevel2Card = false;
 
     [Header("Keycard Spawning")]
     /// <summary> The 3D model/prefab of the keycard to spawn. </summary>
@@ -80,14 +86,36 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        // If we are spawning at a checkpoint, restore the inventory snapshot!
+        if (hasReachedCheckpoint)
+        {
+            mapCount = savedMapCount;
+            score = savedScore;
+            hasLevel1Card = savedHasLevel1Card;
+            hasLevel2Card = savedHasLevel2Card;
+        }
+
+        // Refresh the UI so the screen immediately shows your saved numbers!
+        UpdateUI();
+    }
+
     /// <summary>
-    /// Updates the global checkpoint location.
+    /// Updates the global checkpoint location and saves inventory progress.
     /// </summary>
     public void SaveCheckpoint(Vector3 newPosition)
     {
         savedCheckpointPosition = newPosition;
         hasReachedCheckpoint = true;
-        print("Checkpoint Saved at: " + newPosition);
+
+        // Take a snapshot of the inventory at this exact moment!
+        savedMapCount = mapCount;
+        savedScore = score;
+        savedHasLevel1Card = hasLevel1Card;
+        savedHasLevel2Card = hasLevel2Card;
+
+        print("Checkpoint Saved! Score and Inventory locked in.");
     }
 
     /// <summary>
@@ -239,7 +267,13 @@ public class GameManager : MonoBehaviour
         score = 0;
         hasLevel1Card = false;
         hasLevel2Card = false;
-        hasReachedCheckpoint = false; // Reset the checkpoint so they spawn at the very beginning!
+
+        // Completely reset the checkpoint and memory snapshots so they spawn at the very beginning with nothing!
+        hasReachedCheckpoint = false; 
+        savedMapCount = 0;
+        savedScore = 0;
+        savedHasLevel1Card = false;
+        savedHasLevel2Card = false;
 
         // Unfreeze time BEFORE loading
         Time.timeScale = 1f; 

@@ -53180,8 +53180,8 @@ MonoBehaviour:
   keycardSpawnPoint: {fileID: 312275364}
   mapCount: 0
   score: 0
-  hasLevel1Card: 1
-  hasLevel2Card: 1
+  hasLevel1Card: 0
+  hasLevel2Card: 0
   loreText: {fileID: 1884174639}
   scoreText: {fileID: 1108241180}
   gameOverPanel: {fileID: 1374085031}
