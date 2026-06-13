@@ -18,7 +18,6 @@ public class DoorScript : MonoBehaviour
     [Header("Game Juice")]
     public AudioSource doorAudio; 
 
-    // --- NEW: The door's memory! ---
     private bool isCurrentlyOpen = false; 
     
 
@@ -48,6 +47,9 @@ public class DoorScript : MonoBehaviour
                 else
                 {
                     GameManager.Instance.ShowMessage("Access Denied! You need a Level " + doorLevel + " Keycard.");
+                    
+                    // 5. Update the permanent objective tracker
+                    GameManager.Instance.UpdateObjective("Objective: Find Level " + doorLevel + " Keycard");
                 }
             }
             else

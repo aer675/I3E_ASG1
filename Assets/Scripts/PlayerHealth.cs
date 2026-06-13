@@ -56,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
     /// </summary> <param name="amount">The amount of health to restore.</param>
     public void Heal(int amount)
     {
-        curHealth += amount;
+        curHealth += amount; // Increase current health by the specified amount
         
         if (curHealth > maxHealth)
         {
@@ -65,7 +65,7 @@ public class PlayerHealth : MonoBehaviour
 
         if (healthBar != null)
         {
-            healthBar.SetHealth(curHealth);
+            healthBar.SetHealth(curHealth); // Update the health bar UI to reflect the new health value
         }
     }
 
@@ -78,6 +78,6 @@ public class PlayerHealth : MonoBehaviour
     void Die()
         {
             print("Player has died.");
-            GameManager.Instance.TriggerGameOver(); 
+            GameManager.Instance.TriggerGameOver(); // Call the GameManager's game over function to handle the end of the game
         }
 }

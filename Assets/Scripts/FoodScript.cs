@@ -6,31 +6,31 @@
 
 using UnityEngine;
 
-// We use IInteractable so your Raycast knows you can press 'E' on it!
+// This class implements the IInteractable interface, meaning it must have an Interact() method that defines what happens when the player interacts with this food item in the world.
 public class FoodScript : MonoBehaviour, IInteractable
 {
     [Header("Item Settings")]
     public int healAmount = 25; 
 
     [Header("Game Juice")]
-    public AudioClip eatSound; // Drag your crunch/eating sound effect here!
+    public AudioClip eatSound; 
 
     public void Interact()
     {
-        // 1. Find the PlayerHealth script currently active in the scene
+        // Find the PlayerHealth script in the scene to access the player's health information and healing method.
     PlayerHealth playerHealth = FindFirstObjectByType<PlayerHealth>();
         if (playerHealth != null)
         {
-            // 2. Only let the player eat it if they are actually missing health!
+            // Check if the player's current health is below the maximum health before allowing them to consume the food and heal.
             if (playerHealth.curHealth < playerHealth.maxHealth)
             {
-                // Heal the player
+                // Heal the player by the specified heal amount using the Heal method in the PlayerHealth script.
                 playerHealth.Heal(healAmount);
                 
-                // Show a nice UI message
+                // Provide feedback to the player by showing a message in the UI that indicates how much health was restored.
                 GameManager.Instance.ShowMessage("Ate Canned Food: +" + healAmount + " HP");
 
-                // Play the eating sound effect using our Ghost Speaker trick
+                // Play the eating sound effect at the location of the food item before it is destroyed, giving audio feedback for the interaction.
                 if (eatSound != null)
                 {
                     AudioSource.PlayClipAtPoint(eatSound, transform.position);
@@ -41,7 +41,7 @@ public class FoodScript : MonoBehaviour, IInteractable
             }
             else
             {
-                // 3. If they are at full health, don't let them waste the item!
+                // If the player's health is already full, show a message indicating that they cannot consume the food and that their health is already at maximum.
                 GameManager.Instance.ShowMessage("Health is already full!");
             }
         }

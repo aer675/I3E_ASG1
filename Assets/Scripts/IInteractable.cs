@@ -9,5 +9,5 @@ public interface IInteractable
     /// <summary>
     /// Core interaction method called when the player looks at an object and presses the interaction key.
     /// </summary>
-    void Interact();
+    void Interact(); // This method must be implemented by any class that implements IInteractable
 }

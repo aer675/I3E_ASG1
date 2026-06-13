@@ -20,21 +20,21 @@ public class KeycardScript : MonoBehaviour, IInteractable
     /// </summary>
     public void Interact()
     {
-        // 1. Check which level this card is, and update the GameManager and UI!
+        // 1. Check which level this card is, and update the GameManager and UI.
         if (keycardLevel == 1)
         {
-            GameManager.Instance.hasLevel1Card = true; // Tells the GameManager you have it!
+            GameManager.Instance.hasLevel1Card = true; // Tells the GameManager "Yes, the player has the Level 1 card now!"
             GameManager.Instance.ShowMessage("Level 1 Keycard Collected! Access Granted.");
             print("Level 1 Keycard Picked Up!");
         }
         else if (keycardLevel == 2)
         {
-            GameManager.Instance.hasLevel2Card = true; 
+            GameManager.Instance.hasLevel2Card = true; // Tells the GameManager "Yes, the player has the Level 2 card now!"
             GameManager.Instance.ShowMessage("Level 2 Keycard Collected! Security Override.");
             print("Level 2 Keycard Picked Up!");
         }
         
-        // 2. Play the pickup sound at this exact 3D location before the object is destroyed!
+        // 2. Play the pickup sound at this exact 3D location before the object is destroyed.
         if (pickupSound != null)
         {
             AudioSource.PlayClipAtPoint(pickupSound, transform.position);

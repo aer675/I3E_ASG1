@@ -10,11 +10,11 @@ public class ExitZone : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        // Did the Player touch the finish line?
+        // Check if the object entering the trigger is the player
         if (other.CompareTag("Player"))
         {
             print("Player reached the exit!");
-            GameManager.Instance.TriggerWin();
+            GameManager.Instance.TriggerWin(); // Call the GameManager's win function to handle the end of the game
         }
     }
 }

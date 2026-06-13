@@ -22,7 +22,7 @@ public class GameManager : MonoBehaviour
     /// <summary> Tracks if the player has actually touched a checkpoint yet. </summary>
     public static bool hasReachedCheckpoint = false;
 
-    // --- NEW: Memory snapshots for your inventory! ---
+    /// <summary> Memory snapshots for your inventory /// </summary>
     public static int savedMapCount = 0;
     public static int savedScore = 0;
     public static bool savedHasLevel1Card = false;
@@ -52,6 +52,9 @@ public class GameManager : MonoBehaviour
     [Header("UI References")]
     public TextMeshProUGUI loreText; // Reference to the UI Text component for displaying lore messages
     public TextMeshProUGUI scoreText; // Reference to the UI Text component for displaying score
+    
+    /// <summary> Objective Tracker UI /// </summary>
+    public TextMeshProUGUI objectiveText; 
 
     [Header("UI Overlays")]
     /// <summary> Reference to the Game Over UI Panel. </summary>
@@ -88,7 +91,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        // If we are spawning at a checkpoint, restore the inventory snapshot!
+        // If the player has reached a checkpoint before, restore their inventory and score from the saved memory!
         if (hasReachedCheckpoint)
         {
             mapCount = savedMapCount;
@@ -97,8 +100,11 @@ public class GameManager : MonoBehaviour
             hasLevel2Card = savedHasLevel2Card;
         }
 
-        // Refresh the UI so the screen immediately shows your saved numbers!
+        // Update the UI at the start to reflect any restored inventory or score.
         UpdateUI();
+
+        // Set the starting objective when the level loads ---
+        UpdateObjective("Objective: Find 5 Map Fragments");
     }
 
     /// <summary>
@@ -109,7 +115,7 @@ public class GameManager : MonoBehaviour
         savedCheckpointPosition = newPosition;
         hasReachedCheckpoint = true;
 
-        // Take a snapshot of the inventory at this exact moment!
+        // Save the inventory and score progress into the static memory variables.
         savedMapCount = mapCount;
         savedScore = score;
         savedHasLevel1Card = hasLevel1Card;
@@ -134,6 +140,17 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Changes the permanent objective text on the screen.
+    /// </summary>
+    public void UpdateObjective(string newObjective)
+    {
+        if (objectiveText != null)
+        {
+            objectiveText.text = newObjective;
+        }
+    }
+
+    /// <summary>
     /// Increments the map fragment count and checks if the Level 1 keycard should spawn.
     /// </summary>
     public void AddMapFragment()
@@ -150,12 +167,21 @@ public class GameManager : MonoBehaviour
         
         // Update the UI to show the new map count!
         UpdateUI(); 
+
+        // Update Objective tracker progress 
+        if (mapCount < 5) 
+        {
+            UpdateObjective("Maps Collected: " + mapCount + " / 5");
+        }
         
         // 3. Check for the win condition
         if (mapCount >= 5)
         {
             hasLevel1Card = true;
             print("Level 1 Keycard Authorized!");
+
+            // Give the player their next mission 
+            UpdateObjective("Objective: Find the Level 1 Keycard");
 
             // Spawn the keycard at the designated spawn point
             if (keycardPrefab != null && keycardSpawnPoint != null)
@@ -247,7 +273,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void RetryLevel()
     {
-        // Force the Game Over panel to hide!
+        // Force the Game Over panel to hide.
         if (gameOverPanel != null) gameOverPanel.SetActive(false); 
         
         Time.timeScale = 1f; 

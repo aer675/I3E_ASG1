@@ -26,23 +26,25 @@ public class PlayerController : MonoBehaviour
     public float stepSpeed = 0.5f; // How fast the steps play (lower number = faster steps)
     private float stepTimer = 0f;
 
-    // Notice this is now an IEnumerator Start() so we can use the time delay!
+    // Start is a Coroutine because we want to add a slight delay before teleporting the player to the checkpoint, to let Unity's physics engine fully load.
     IEnumerator Start()
     {
         // Wait for exactly 0.1 seconds to let Unity's physics engine fully load
         yield return new WaitForSeconds(0.1f);
 
-        // If the player has touched a checkpoint, teleport them there immediately upon loading the scene!
+        // Check if the GameManager says we have reached a checkpoint before, and if so, teleport the player to that checkpoint position!
         if (GameManager.hasReachedCheckpoint)
         {
+            // Get the CharacterController component so we can disable it before teleporting (to avoid physics issues) and re-enable it after.
             CharacterController cc = GetComponent<CharacterController>();
             
-            // We must turn off the controller, move the player, and turn it back on!
-            // Unity's physics engine will fight the teleportation if we don't.
+            // Disable the CharacterController before teleporting.
             if (cc != null) cc.enabled = false;
             
+            // Teleport the player to the saved checkpoint position stored in the GameManager.
             transform.position = GameManager.savedCheckpointPosition;
             
+            // Re-enable the CharacterController after teleporting.
             if (cc != null) cc.enabled = true;
         }
     }
@@ -63,18 +65,18 @@ public class PlayerController : MonoBehaviour
     {
         CharacterController cc = GetComponent<CharacterController>();
 
-        // 1. Are we touching the ground AND moving?
+        // 1. Check if the CharacterController is grounded and has some velocity (is moving)
         if (cc != null && cc.isGrounded && cc.velocity.magnitude > 0.1f)
         {
-            // 2. Count down the timer
+            // 2. If so, count down the step timer by the time between frames
             stepTimer -= Time.deltaTime;
 
-            // 3. When the timer hits 0, play a step!
+            // 3. When the timer reaches 0, play a footstep sound and reset the timer to the step speed for the next step.
             if (stepTimer <= 0f)
             {
                 if (footstepSource != null && footstepSound != null)
                 {
-                    // Slightly randomize the pitch so it sounds like real, natural walking!
+                    // Randomize the pitch slightly for variety, then play the footstep sound effect using our Ghost Speaker trick
                     footstepSource.pitch = Random.Range(0.85f, 1.15f);
                     footstepSource.PlayOneShot(footstepSound);
                 }
@@ -95,8 +97,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void ScanForInteractables()
     {
-        // Safety check: ensure we actually linked the camera in the Inspector!
-        if (playerCamera == null) 
+        // Making sure a player camera is assigned, otherwise the raycast won't work.
+        if (playerCamera == null)
         {
             Debug.LogWarning("Player Camera is not assigned in the PlayerController!");
             return;
@@ -109,7 +111,7 @@ public class PlayerController : MonoBehaviour
         // 2. Shoot the laser beam out by the distance of our interactRange
         if (Physics.Raycast(ray, out hitInfo, interactRange))
         {
-            // 3. We hit something! Check if it has a script using the IInteractable rule attached
+            // 3. Check if the laser beam hit an object with an IInteractable script on it
             IInteractable interactableObj = hitInfo.collider.GetComponent<IInteractable>();
 
             if (interactableObj != null)

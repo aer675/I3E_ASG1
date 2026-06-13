@@ -10,10 +10,10 @@ public class CheckpointScript : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        // Did the player walk through the invisible box?
+        // Check if the object entering the trigger is the player
         if (other.CompareTag("Player"))
         {
-            // Tell the GameManager to save this exact position!
+            // Save the checkpoint position
             GameManager.Instance.SaveCheckpoint(transform.position);
         }
     }
